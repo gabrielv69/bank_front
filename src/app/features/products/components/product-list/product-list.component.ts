@@ -3,6 +3,7 @@ import { FormControl, FormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
 import { MessageService } from '../../../../core/services/message.service';
+import { NavigationService } from '../../../../core/services/navigation.service';
 import { Product } from '../../../../core/models/product.model';
 import { ProductService } from '../../../../core/services/product.service';
 import { constants } from '../../../../../constants/constants';
@@ -36,6 +37,7 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productsService: ProductService,
     private messageService: MessageService,
+    private navigationService: NavigationService
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +51,6 @@ export class ProductListComponent implements OnInit {
   loadProducts() {
     this.productsService.getAll().subscribe(
       (response) => {
-        console.log(response);
         if (response.data && response.data.length > 0) {
           this.products = response.data;
           this.filteredProducts = this.products;
@@ -104,4 +105,12 @@ export class ProductListComponent implements OnInit {
     this.updateVisibleProducts();
   }
 
+
+  /**
+   * Redirect to add product
+   *
+   */
+ redirectToAdd(product: Product | null) {
+    this.navigationService.goToAdd(product);
+  }
 }

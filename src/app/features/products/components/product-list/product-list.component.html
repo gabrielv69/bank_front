@@ -11,7 +11,7 @@
         [(ngModel)]="searchQuery"
         (ngModelChange)="applyFilter()"
       />
-      <button class="btn-agregar">Agregar</button>
+        <button class="btn-agregar" (click)="redirectToAdd(null)">Agregar</button>
     </div>
     <table class="products-table">
       <thead>

@@ -33,7 +33,8 @@ export const constants = {
       ERROR_UPDATE: 'No se ha podido actualizar el producto.',
       UPDATE: 'Registro exitoso, se ha actualizado correctamente el producto.',
       DELETE: 'Producto eliminado con éxito.',
-      CONFIRM_DELETE: '<br>¿Está seguro de eliminar este elemento?'
+      CONFIRM_DELETE: '<br>¿Está seguro de eliminar este elemento?',
+      EMPTY_FIELD:'ID no válido'
     },
   }
 };
