@@ -9,7 +9,7 @@ Use [git](https://git-scm.com/downloads) to clone repository
 ```bash
 git clone https://github.com/gabrielv69/bank_front.git
 ```
-Install [NodeJS](https://nodejs.org/en/download/) 
+Install [NodeJS](https://nodejs.org/en/download/) this project use 20.18.1 version
 
 Open the project, it is recommended to use [VisualStudio] (https://code.visualstudio.com/)
 
