@@ -11,7 +11,7 @@
         [(ngModel)]="searchQuery"
         (ngModelChange)="applyFilter()"
       />
-        <button class="btn-agregar" (click)="redirectToAdd(null)">Agregar</button>
+      <button class="btn-agregar" (click)="redirectToAdd(null)">Agregar</button>
     </div>
     <table class="products-table">
       <thead>
@@ -42,6 +42,12 @@
           <td>{{ product.description }}</td>
           <td>{{ product.date_release | date : "dd/MM/yyyy" }}</td>
           <td>{{ product.date_revision | date : "dd/MM/yyyy" }}</td>
+          <td>
+            <app-product-menu
+              (edit)="onEdit(product)"
+              (delete)="onDelete(product)"
+            ></app-product-menu>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -48,8 +48,10 @@ export class ProductFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {
+    this.getProductData();
     this.buildForm();
   }
 
@@ -152,7 +154,7 @@ export class ProductFormComponent implements OnInit {
       return;
     }
     if (this.isEdit) {
-      // UPDATE
+      this.updateProduct(this.product);
     } else {
       if (this.productForm.valid) {
         const isValid = await this.verificateId(this.product.id);
@@ -182,7 +184,7 @@ export class ProductFormComponent implements OnInit {
       minlength: !!errors?.['minlength'],
       maxlength: !!errors?.['maxlength'],
       minDate: !!errors?.['minDate'],
-      whitespace: !!errors?.['whitespace']
+      whitespace: !!errors?.['whitespace'],
     };
   }
 
@@ -234,7 +236,7 @@ export class ProductFormComponent implements OnInit {
     );
   }
 
-    /**
+  /**
    *Validate if field has empty spaces
    *
    */
@@ -254,5 +256,48 @@ export class ProductFormComponent implements OnInit {
       }
       return null;
     };
+  }
+
+  /**
+   *Update product
+   *
+   */
+  updateProduct(product: Product) {
+    this.productService.update(product.id, product).subscribe(
+      (response) => {
+        if (response.message === constants.RESPONSES.PRODUCTS.UPDATE_CORRECT) {
+          this.productForm.reset();
+          this.messageService.showMessage(
+            constants.MESSAGES.PRODUCTS.UPDATE,
+            'success'
+          );
+        } else {
+          this.messageService.showMessage(
+            constants.MESSAGES.PRODUCTS.ERROR_UPDATE,
+            'error'
+          );
+        }
+      },
+      (error) => {
+        this.messageService.showMessage(
+          constants.MESSAGES.PRODUCTS.ERROR_SERVICE,
+          'error'
+        );
+      }
+    );
+  }
+
+
+/**
+   *Get product data from url redirect
+   *
+   */
+  getProductData() {
+    const nav = this.router.getCurrentNavigation();
+    const state = nav?.extras.state as { product: Product };
+    if (state?.product) {
+      this.isEdit = true;
+      this.product = state.product;
+    }
   }
 }

@@ -5,20 +5,21 @@ import { CommonModule } from '@angular/common';
 import { MessageService } from '../../../../core/services/message.service';
 import { NavigationService } from '../../../../core/services/navigation.service';
 import { Product } from '../../../../core/models/product.model';
+import { ProductMenuComponent } from '../product-menu/product-menu.component';
 import { ProductService } from '../../../../core/services/product.service';
 import { constants } from '../../../../../constants/constants';
 
 /**
  * Products list component
  *
- * @author gvivas on 2025/04/18.
+ * @author gvivas
  * @version 1.0
  * @since 1.0.0
  */
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,ProductMenuComponent],
   providers: [],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
@@ -105,12 +106,24 @@ export class ProductListComponent implements OnInit {
     this.updateVisibleProducts();
   }
 
-
   /**
    * Redirect to add product
    *
    */
- redirectToAdd(product: Product | null) {
+  redirectToAdd(product: Product | null) {
     this.navigationService.goToAdd(product);
+  }
+
+   /**
+   * Redirect to edit product
+   *
+   */
+  onEdit(product: Product) {
+    this.redirectToAdd(product);
+  }
+
+  onDelete(product: Product) {
+    //TO DO
+    console.log(product);
   }
 }

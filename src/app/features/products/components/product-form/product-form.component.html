@@ -56,7 +56,7 @@
             <ng-container
               *ngIf="
                 getFieldErrors('name').minlength ||
-                getFieldErrors('name').maxlength
+                getFieldErrors('name').maxlength || getFieldErrors('name').whitespace
               "
             >
               Nombre no válido!
@@ -86,7 +86,7 @@
             <ng-container
               *ngIf="
                 getFieldErrors('description').minlength ||
-                getFieldErrors('description').maxlength
+                getFieldErrors('description').maxlength || getFieldErrors('description').whitespace
               "
             >
               Descripción no valida!
