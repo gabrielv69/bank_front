@@ -27,6 +27,12 @@ describe('NavigationService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('should navigate to /list', () => {
+    service.goToProducts();
+    expect(routerMock.navigate).toHaveBeenCalledTimes(1);
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/list']);
+  });
+
 
   describe('goToAdd', () => {
     it('should navigate to /product when product is null', () => {

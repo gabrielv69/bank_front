@@ -17,6 +17,7 @@ import { ProductService } from '../../../../core/services/product.service';
 import { Router } from '@angular/router';
 import { constants } from '../../../../../constants/constants';
 import { firstValueFrom } from 'rxjs';
+import { NavigationService } from '../../../../core/services/navigation.service';
 
 /**
  * Products form component
@@ -49,7 +50,8 @@ export class ProductFormComponent implements OnInit {
     private fb: FormBuilder,
     private productService: ProductService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private navigationService: NavigationService
   ) {
     this.getProductData();
     this.buildForm();
@@ -267,6 +269,7 @@ export class ProductFormComponent implements OnInit {
       (response) => {
         if (response.message === constants.RESPONSES.PRODUCTS.UPDATE_CORRECT) {
           this.productForm.reset();
+          this.navigationService.goToProducts();
           this.messageService.showMessage(
             constants.MESSAGES.PRODUCTS.UPDATE,
             'success'
