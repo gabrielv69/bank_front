@@ -1,6 +1,6 @@
 # BankFront
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
+Simple CRUD for bank products (Tcs). This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
 
 ## Installation
 
