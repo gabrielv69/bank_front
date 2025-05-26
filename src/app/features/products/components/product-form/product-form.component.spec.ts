@@ -4,6 +4,7 @@ import { of, throwError } from 'rxjs';
 
 import { CommonModule } from '@angular/common';
 import { MessageService } from '../../../../core/services/message.service';
+import { NavigationService } from '../../../../core/services/navigation.service';
 import { Product } from '../../../../core/models/product.model';
 import { ProductFormComponent } from './product-form.component';
 import { ProductService } from '../../../../core/services/product.service';
@@ -18,6 +19,7 @@ describe('ProductFormComponent', () => {
   let mockMessageService: jest.Mocked<MessageService>;
   let mockRouter: jest.Mocked<Router>;
   let formBuilder: FormBuilder;
+  let mockNavigationService: jest.Mocked<NavigationService>;
 
   const mockProduct: Product = {
     id: 'test123',
@@ -69,6 +71,10 @@ describe('ProductFormComponent', () => {
       navigate: jest.fn(),
     } as unknown as jest.Mocked<Router>;
 
+    mockNavigationService = {
+      goToProducts: jest.fn(),
+    } as unknown as jest.Mocked<NavigationService>;
+
     await TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -81,6 +87,7 @@ describe('ProductFormComponent', () => {
         { provide: ProductService, useValue: mockProductService },
         { provide: MessageService, useValue: mockMessageService },
         { provide: Router, useValue: mockRouter },
+        { provide: NavigationService, useValue: mockNavigationService },
       ],
     }).compileComponents();
 
@@ -272,9 +279,9 @@ describe('ProductFormComponent', () => {
     });
 
     it('should call update if form is valid and is edit', () => {
-      mockResponse.message= constants.RESPONSES.PRODUCTS.UPDATE_CORRECT;
+      mockResponse.message = constants.RESPONSES.PRODUCTS.UPDATE_CORRECT;
       mockProductService.update.mockReturnValue(of(mockResponse));
-      component.isEdit=true
+      component.isEdit = true;
       component.onSubmit();
       expect(mockProductService.update).toHaveBeenCalled();
     });
@@ -287,7 +294,6 @@ describe('ProductFormComponent', () => {
       await component.onSubmit();
       expect(mockProductService.create).toHaveBeenCalled();
     });
-
   });
 
   describe('getFieldErrors', () => {
@@ -343,7 +349,7 @@ describe('ProductFormComponent', () => {
     });
 
     it('should reset the form and show success message when creation is successful', () => {
-      mockResponse.message= constants.MESSAGES.PRODUCTS.SAVE;
+      mockResponse.message = constants.MESSAGES.PRODUCTS.SAVE;
       mockProductService.create.mockReturnValue(of(mockResponse));
       component.createProduct(component.productForm.value);
       expect(mockMessageService.showMessage).toHaveBeenCalled();
@@ -372,7 +378,7 @@ describe('ProductFormComponent', () => {
     });
 
     it('should reset the form and show success message when update is successful', () => {
-      mockResponse.message= constants.RESPONSES.PRODUCTS.UPDATE_CORRECT;
+      mockResponse.message = constants.RESPONSES.PRODUCTS.UPDATE_CORRECT;
       mockProductService.update.mockReturnValue(of(mockResponse));
       component.updateProduct(component.productForm.value);
       expect(mockMessageService.showMessage).toHaveBeenCalled();
@@ -384,6 +390,4 @@ describe('ProductFormComponent', () => {
       expect(mockMessageService.showMessage).toHaveBeenCalled();
     });
   });
-
-
 });

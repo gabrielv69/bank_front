@@ -17,6 +17,13 @@ export class NavigationService {
   constructor(private router: Router) {}
 
   /**
+   * Redirect to list products
+   */
+  goToProducts(): void {
+    this.router.navigate(['/list']);
+  }
+
+  /**
    * Redirect to form
    */
   goToAdd(product: Product | null): void {
